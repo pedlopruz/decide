@@ -45,6 +45,16 @@ class VotingModelTestCase(BaseTestCase):
     def testExist(self):
         v=Voting.objects.get(name='Votacion')
         self.assertEquals(v.question.options.all()[0].option, "opcion 1")
+    
+    def test_to_string(self):
+        #Crea un objeto votacion
+        v = self.create_voting()
+        #Verifica que el nombre de la votacion es test voting
+        self.assertEquals(str(v),"test voting")
+        #Verifica que la descripcion de la pregunta sea test question
+        self.assertEquals(str(v.question),"test question")
+        #Verifica que la primera opcion es option1 (2)
+        self.assertEquals(str(v.question.options.all()[0]),"option 1 (2)")
 
     def encrypt_msg(self, msg, v, bits=settings.KEYBITS):
         pk = v.pub_key
